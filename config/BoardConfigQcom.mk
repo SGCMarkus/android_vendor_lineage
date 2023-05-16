@@ -115,9 +115,14 @@ ifneq ($(filter $(UM_5_10_FAMILY) $(UM_5_15_FAMILY),$(TARGET_BOARD_PLATFORM)),)
     TARGET_USES_QCOM_AUDIO_AR ?= true
 endif
 
-# UM_5_10_FAMILY HALs have reserved_size in gralloc handle
-ifneq ($(filter $(UM_5_10_FAMILY),$(TARGET_BOARD_PLATFORM)),)
+# GKI 2.0 HALs have reserved_size in gralloc handle
+ifneq ($(filter $(UM_5_10_FAMILY) $(UM_5_15_FAMILY),$(TARGET_BOARD_PLATFORM)),)
     TARGET_GRALLOC_HANDLE_HAS_RESERVED_SIZE ?= true
+
+# Use full QTI gralloc struct for UM_5_15_FAMILY targets
+ifneq ($(filter $(UM_5_15_FAMILY),$(TARGET_BOARD_PLATFORM)),)
+    TARGET_GRALLOC_HANDLE_HAS_CUSTOM_CONTENT_MD_RESERVED_SIZE ?= true
+endif
 endif
 
 # Enable displayconfig on every UM platform
