@@ -206,5 +206,9 @@ endif
 
 # Add dataservices to PRODUCT_SOONG_NAMESPACES if needed
 ifneq ($(USE_DEVICE_SPECIFIC_DATASERVICES),true)
+ifneq ($(filter $(UM_5_15_FAMILY),$(TARGET_BOARD_PLATFORM)),)
     PRODUCT_SOONG_NAMESPACES += vendor/qcom/opensource/dataservices
+else
+    PRODUCT_SOONG_NAMESPACES += vendor/qcom/opensource/dataservices-legacy
+endif
 endif
